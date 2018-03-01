@@ -6,6 +6,7 @@ public class Ride {
     int earliestStart;
     int latestFinish;
     int rideNumber;
+    boolean hasBeenAssigned;
 
 
     public Ride(int rowStart, int columnStart, int rowEnd, int columnEnd, int earliestStart, int latestFinish, int rideNumber) {
@@ -16,6 +17,7 @@ public class Ride {
         this.earliestStart = earliestStart;
         this.latestFinish = latestFinish;
         this.rideNumber = rideNumber;
+        this.hasBeenAssigned = false;
     }
 
     public int getRowStart() {
@@ -74,6 +76,14 @@ public class Ride {
         this.rideNumber = rideNumber;
     }
 
+    public boolean isHasBeenAssigned() {
+        return hasBeenAssigned;
+    }
+
+    public void setHasBeenAssigned(boolean hasBeenAssigned) {
+        this.hasBeenAssigned = hasBeenAssigned;
+    }
+
     @Override
     public String toString() {
         return "Ride{" +
@@ -84,6 +94,7 @@ public class Ride {
                 ", earliestStart=" + earliestStart +
                 ", latestFinish=" + latestFinish +
                 ", rideNumber=" + rideNumber +
+                ", hasBeenAssigned=" + hasBeenAssigned +
                 '}';
     }
 }

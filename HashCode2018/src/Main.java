@@ -3,6 +3,7 @@ import Utils.Transportation;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Main {
@@ -48,6 +49,7 @@ public class Main {
         List<Ride> rideList = new ArrayList<Ride>();
         List<Vehicle> vehicleList = new ArrayList<Vehicle>();
         Transportation transportation = new Transportation();
+        RideComparator comparator = new RideComparator();
 
         for (int i=0; i<fleets; i++) {
             Vehicle vehicle = new Vehicle(0,0);
@@ -60,5 +62,8 @@ public class Main {
             System.out.println(ride.toString());
             rideList.add(ride);
         }
+
+        Collections.sort(rideList, comparator);
+        System.out.println(rideList.toString());
     }
 }
