@@ -1,3 +1,5 @@
+import com.sun.org.apache.xpath.internal.SourceTree;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,6 +53,7 @@ public class Main {
 
         for (int i=0; i<fleets; i++) {
             Vehicle vehicle = new Vehicle(0,0);
+            vehicleList.add(vehicle);
         }
 
         for (int i=0; i<nRides; i++) {
@@ -71,18 +74,30 @@ public class Main {
         for (Vehicle v: vehicleList) {
             for (Ride r: rideList) {
                 if (!r.hasBeenAssigned && transportation.canRideBeAssigned(v, r, timesteps)) {
+                    int currentTimeStep = v.getCurrentTimeStep();
+                    currentTimeStep += transportation.getTotalRideDistance(v, r);
                     v.getRidesAssigned().add(r);
                     r.setHasBeenAssigned(true);
+                    v.setCurrentRow(r.rowEnd);
+                    v.setCurrentColumn(r.columnEnd);
+                    v.setCurrentTimeStep(currentTimeStep);
                 }
             }
         }
 
+        System.out.println("Vehicles" + vehicleList.size());
+        System.out.println("Solution: ");
+        System.out.println();
+        System.out.println();
         for (Vehicle vehicle: vehicleList){
             writer.write(vehicle.getRidesAssigned().size());
+            System.out.print(vehicle.getRidesAssigned().size());
             for (Ride ride: vehicle.getRidesAssigned()){
                 writer.write(" "+ride.getRideNumber());
+                System.out.print(" "+ride.getRideNumber());
             }
             writer.write("\n");
+            System.out.println();
         }
         writer.flush();
     }
