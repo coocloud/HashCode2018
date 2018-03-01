@@ -63,5 +63,24 @@ public class Main {
 
         Collections.sort(rideList, comparator);
         System.out.println(rideList.toString());
+
+        //Assigning 1 ride to each vehicle first
+
+        Boolean stopThis = false;
+
+        for (Vehicle v: vehicleList) {
+            for (Ride r: rideList) {
+
+            }
+        }
+
+        for (Vehicle vehicle: vehicleList){
+            writer.write(vehicle.getRidesAssigned().size());
+            for (Ride ride: vehicle.getRidesAssigned()){
+                writer.write(" "+ride.getRideNumber());
+            }
+            writer.write("\n");
+        }
+        writer.flush();
     }
 }
