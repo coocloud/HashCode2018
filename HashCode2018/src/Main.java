@@ -90,7 +90,7 @@ public class Main {
         System.out.println();
         System.out.println();
         for (Vehicle vehicle: vehicleList){
-            writer.write(vehicle.getRidesAssigned().size());
+            writer.write(String.valueOf(vehicle.getRidesAssigned().size()));
             System.out.print(vehicle.getRidesAssigned().size());
             for (Ride ride: vehicle.getRidesAssigned()){
                 writer.write(" "+ride.getRideNumber());
