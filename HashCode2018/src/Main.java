@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Arrays;
 
 public class Main {
 
@@ -17,5 +18,6 @@ public class Main {
 
         String line = bufferedReader.readLine();
         String firstLine[] = line.split(" ");
+        System.out.println(Arrays.toString(firstLine));
     }
 }
