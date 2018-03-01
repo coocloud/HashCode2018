@@ -7,10 +7,20 @@ public class Transportation {
         if (vehicle.getCurrentTimeStep() > ride.getLatestFinish()) {
             return false;
         }
+
         int vehicleAndStartDistance = distance(vehicle.getCurrentRow(), ride.getRowStart(),
                 vehicle.getCurrentColumn(), ride.getColumnStart());
         int rideDistance = distance(ride.getRowStart(), ride.getRowEnd(), ride.getColumnStart(), ride.getColumnEnd());
         int totalRideDistance = vehicleAndStartDistance + rideDistance;
+
+        if (vehicle.getCurrentTimeStep() + vehicleAndStartDistance == ride.getEarliestStart()) {
+            return true;
+        }
+
+        if (vehicle.getCurrentTimeStep() + vehicleAndStartDistance < ride.getEarliestStart()) {
+            totalRideDistance += (ride.getEarliestStart() - (vehicle.getCurrentTimeStep() + vehicleAndStartDistance));
+        }
+
         if (totalRideDistance + vehicle.getCurrentTimeStep() <= ride.getLatestFinish() &&
                 totalRideDistance + vehicle.getCurrentTimeStep() < overallAvailableSteps) {
             return true;
@@ -23,6 +33,9 @@ public class Transportation {
                 vehicle.getCurrentColumn(), ride.getColumnStart());
         int rideDistance = distance(ride.getRowStart(), ride.getRowEnd(), ride.getColumnStart(), ride.getColumnEnd());
         int totalRideDistance = vehicleAndStartDistance + rideDistance;
+        if (vehicle.getCurrentTimeStep() + vehicleAndStartDistance < ride.getEarliestStart()) {
+            totalRideDistance += (ride.getEarliestStart() - (vehicle.getCurrentTimeStep() + vehicleAndStartDistance));
+        }
         return totalRideDistance;
     }
 

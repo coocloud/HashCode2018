@@ -10,9 +10,9 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         FileInputStream fis = null;
-        FileOutputStream out = new FileOutputStream("file/hello.out");
+        FileOutputStream out = new FileOutputStream("file/b_should_be_easy_6.out");
         try {
-            fis = new FileInputStream("file/a_example.in");
+            fis = new FileInputStream("file/b_should_be_easy.in");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -23,7 +23,7 @@ public class Main {
 
         String line = bufferedReader.readLine();
         String firstLine[] = line.split(" ");
-        System.out.println(Arrays.toString(firstLine));
+//        System.out.println(Arrays.toString(firstLine));
 
         int rows;
         int columns;
@@ -60,44 +60,56 @@ public class Main {
             line = bufferedReader.readLine();
             String rideInfo[] = line.split(" ");
             Ride ride = new Ride(Integer.parseInt(rideInfo[0]), Integer.parseInt(rideInfo[1]), Integer.parseInt(rideInfo[2]), Integer.parseInt(rideInfo[3]), Integer.parseInt(rideInfo[4]), Integer.parseInt(rideInfo[5]), i);
-            System.out.println(ride.toString());
+//            System.out.println(ride.toString());
             rideList.add(ride);
         }
 
         Collections.sort(rideList, comparator);
-        System.out.println(rideList.toString());
+//        System.out.println(rideList.toString());
 
         //Assigning 1 ride to each vehicle first
 
-        Boolean stopThis = false;
+        Boolean stopThis = true;
 
-        for (Vehicle v: vehicleList) {
-            for (Ride r: rideList) {
-                if (!r.hasBeenAssigned && transportation.canRideBeAssigned(v, r, timesteps)) {
-                    int currentTimeStep = v.getCurrentTimeStep();
-                    currentTimeStep += transportation.getTotalRideDistance(v, r);
-                    v.getRidesAssigned().add(r);
-                    r.setHasBeenAssigned(true);
-                    v.setCurrentRow(r.rowEnd);
-                    v.setCurrentColumn(r.columnEnd);
-                    v.setCurrentTimeStep(currentTimeStep);
+        do {
+            stopThis = false;
+            for (Vehicle v: vehicleList) {
+                for (Ride r: rideList) {
+                    if (!r.hasBeenAssigned && transportation.canRideBeAssigned(v, r, timesteps)) {
+                        int currentTimeStep = v.getCurrentTimeStep();
+                        currentTimeStep += transportation.getTotalRideDistance(v, r);
+                        v.getRidesAssigned().add(r);
+                        r.setHasBeenAssigned(true);
+                        v.setCurrentRow(r.rowEnd);
+                        v.setCurrentColumn(r.columnEnd);
+                        v.setCurrentTimeStep(currentTimeStep);
+                        break;
+                    }
                 }
             }
-        }
+            for (Vehicle v: vehicleList) {
+                for (Ride r: rideList) {
+                    if (!r.hasBeenAssigned && transportation.canRideBeAssigned(v, r, timesteps)) {
+                        stopThis = true;
+                    }
+                }
+            }
+        } while (stopThis);
 
-        System.out.println("Vehicles" + vehicleList.size());
-        System.out.println("Solution: ");
-        System.out.println();
-        System.out.println();
+
+//        System.out.println("Vehicles" + vehicleList.size());
+//        System.out.println("Solution: ");
+//        System.out.println();
+//        System.out.println();
         for (Vehicle vehicle: vehicleList){
             writer.write(String.valueOf(vehicle.getRidesAssigned().size()));
-            System.out.print(vehicle.getRidesAssigned().size());
+//            System.out.print(vehicle.getRidesAssigned().size());
             for (Ride ride: vehicle.getRidesAssigned()){
                 writer.write(" "+ride.getRideNumber());
-                System.out.print(" "+ride.getRideNumber());
+//                System.out.print(" "+ride.getRideNumber());
             }
             writer.write("\n");
-            System.out.println();
+//            System.out.println();
         }
         writer.flush();
     }
