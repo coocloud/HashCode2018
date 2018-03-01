@@ -70,7 +70,10 @@ public class Main {
 
         for (Vehicle v: vehicleList) {
             for (Ride r: rideList) {
-
+                if (!r.hasBeenAssigned && transportation.canRideBeAssigned(v, r, timesteps)) {
+                    v.getRidesAssigned().add(r);
+                    r.setHasBeenAssigned(true);
+                }
             }
         }
 
