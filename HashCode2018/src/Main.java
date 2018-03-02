@@ -10,7 +10,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         FileInputStream fis = null;
-        FileOutputStream out = new FileOutputStream("file/b_should_be_easy_6.out");
+        FileOutputStream out = new FileOutputStream("file/b_should_be_easy_7.out");
         try {
             fis = new FileInputStream("file/b_should_be_easy.in");
         } catch (FileNotFoundException e) {
@@ -65,7 +65,7 @@ public class Main {
         }
 
         Collections.sort(rideList, comparator);
-//        System.out.println(rideList.toString());
+        System.out.println(rideList.toString());
 
         //Assigning 1 ride to each vehicle first
 
@@ -97,6 +97,8 @@ public class Main {
         } while (stopThis);
 
 
+
+
 //        System.out.println("Vehicles" + vehicleList.size());
 //        System.out.println("Solution: ");
 //        System.out.println();
@@ -112,5 +114,12 @@ public class Main {
 //            System.out.println();
         }
         writer.flush();
+
+
+        for (Ride ride: rideList) {
+            if (!ride.hasBeenAssigned) {
+               System.out.println(ride.getRideNumber() + ":" + ride.hasBeenAssigned);
+            }
+        }
     }
 }
